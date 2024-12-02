@@ -162,4 +162,4 @@ cython_debug/
 #.idea/
 
 # Advent of Code
-input_1.txt
+input.txt

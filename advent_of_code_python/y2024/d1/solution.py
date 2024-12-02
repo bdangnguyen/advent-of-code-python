@@ -27,10 +27,33 @@ class Solution:
 
         return total_diff
     
+    # Idea: Left list does not need to be sorted. Second list can utilize a frequency count with a hashmap.
+    # This becomes O(2n) runtime with O(2n) space.
+    def solve_part_two(self):
+        similarity_score = 0
+        frequency_counter = {}
+        
+        for number in self.right_list:
+            if number not in frequency_counter:
+                frequency_counter[number] = 1
+            else:
+                frequency_counter[number] = frequency_counter[number] + 1
+        
+        for number in self.left_list:
+            if number not in frequency_counter:
+                continue
+            else:
+                similarity_score += number * frequency_counter[number]
+
+        return similarity_score
+
+    
 def main():
     solution = Solution(sys.argv[-1])
     part_one_value = solution.solve_part_one()
+    part_two_value = solution.solve_part_two()
     print(f'Solution Part 1: {part_one_value}')
+    print(f'Solution Part 2: {part_two_value}')
 
 if __name__ == '__main__':
     main()
