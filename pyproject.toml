@@ -1,0 +1,4 @@
+[pytest]
+pythonpath = [
+    "advent_of_code_python"
+]
