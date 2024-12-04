@@ -16,7 +16,9 @@ class Solution:
                 self.right_list.append(int(split_line[1]))
 
 
-    # Idea: Sort both lines. This becomes O(2nlogn) + O(n) runtime with O(2n) space.
+    # Idea: Sort both lines.
+    # Time: O(2nlogn) + O(n)
+    # Space: O(1)
     def solve_part_one(self):
         total_diff = 0
         self.left_list.sort()
@@ -28,7 +30,8 @@ class Solution:
         return total_diff
     
     # Idea: Left list does not need to be sorted. Second list can utilize a frequency count with a hashmap.
-    # This becomes O(2n) runtime with O(2n) space.
+    # Time: O(2n)
+    # Space: O(n)
     def solve_part_two(self):
         similarity_score = 0
         frequency_counter = {}

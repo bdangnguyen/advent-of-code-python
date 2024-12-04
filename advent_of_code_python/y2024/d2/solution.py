@@ -20,7 +20,8 @@ class Solution:
 
     # Idea: Iterate through each report. First, get the "direction" from the first and second
     # element. Check the direction of all elements after while also checking the difference.
-    # O(mn) runtime where m = number of reports and n = size of longest report and O(1) size
+    # Time: O(mn) where m = number of reports and n = size of longest report
+    # Space: O(1) 
     def solve_part_one(self):
         safe_reports = 0
 
@@ -29,38 +30,56 @@ class Solution:
                 safe_reports += 1
         
         return safe_reports
+    
+    # Idea: Brute force this and check all possible sub list combinations.
+    # Edge case 1: Removal of problem level causes a new issue I.e. 1 9 10, 6 2 1.
+    # Edge case 2: Removal of second level, then we need to also consider the new direction. To 
+    # solve this, we should remove the next element from the list and continue in place. 
+    # Edge case 3: First element is possible to be removed to be safe. In this situation, need to
+    # evaluate the entire remaining sublist for safety.
+    # Time: O(mn^2) where m = number of reports and n = length of longest levels
+    # Space: O(n)
+    def solve_part_two(self):
+        safe_reports = 0
 
+        for report in self.reports:
+            if self.check_report_safety_with_problem_dampener(report):
+                safe_reports += 1
+
+        return safe_reports
+    
+    def check_report_safety_with_problem_dampener(self, report: List[int]) -> bool:
+        for i in range(0, len(report)):
+            dampened_list = report.copy()
+            dampened_list.pop(i)
+            if self.check_report_safety(dampened_list):
+                return True
+            
+        return False
+    
     def check_report_safety(self, report: List[int]) -> bool:
-        difference = self.calculate_difference_between_levels(report, 0)
-        distance = abs(difference)
-        if distance < 1 or distance > 3:
-            return False
+        monotonically_increasing = True
 
-        monotonically_increasing = True if difference > 0 else False
-
-        # Iterate starting from index 1 up to n - 1
-        for i in range(1, len(report) - 1):
-            iter_difference = self.calculate_difference_between_levels(report, i)
-            iter_distance = abs(iter_difference)
-            if iter_distance < 1 or iter_distance > 3:
+        for i in range(0, len(report) - 1):
+            difference = report[i + 1] - report[i]
+            if i == 0:
+                monotonically_increasing = True if difference > 0 else False 
+            distance = abs(difference)
+            
+            if distance < 1 or distance > 3:
                 return False
-
-            if monotonically_increasing and iter_difference < 0:
-                return False
-            elif not monotonically_increasing and iter_difference > 0:
+            if ((monotonically_increasing and difference < 0) 
+                or (not monotonically_increasing and difference > 0)):
                 return False
         
         return True
-
-    def calculate_difference_between_levels(self, report: List[int], curr_index: int) -> int:
-        curr_level = report[curr_index]
-        next_level = report[curr_index + 1]
-        return next_level - curr_level
     
 def main():
-    solution = Solution(sys.argv[-1])
+    solution = Solution(sys.argv[1])
     part_one_value = solution.solve_part_one()
+    part_two_value = solution.solve_part_two()
     print(f'Solution Part 1: {part_one_value}')
+    print(f'Solution Part 2: {part_two_value}')
 
 if __name__ == '__main__':
     main()
