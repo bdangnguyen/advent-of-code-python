@@ -34,3 +34,8 @@ def test_day_3_sample_2():
     solution = d3.Solution(_SAMPLE_TXT)
 
     assert solution.solve_part_one() == 48
+
+def test_day_4_sample_1():
+    solution = d3.Solution(_SAMPLE_TXT)
+
+    assert solution.solve_part_one() == 18
