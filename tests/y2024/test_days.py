@@ -1,6 +1,7 @@
 import advent_of_code_python.y2024.d1.solution as d1
 import advent_of_code_python.y2024.d2.solution as d2
 import advent_of_code_python.y2024.d3.solution as d3
+import advent_of_code_python.y2024.d4.solution as d4
 
 
 _SAMPLE_TXT = 'sample.txt'
@@ -33,9 +34,14 @@ def test_day_3_sample_1():
 def test_day_3_sample_2():
     solution = d3.Solution(_SAMPLE_TXT)
 
-    assert solution.solve_part_one() == 48
+    assert solution.solve_part_two() == 48
 
 def test_day_4_sample_1():
-    solution = d3.Solution(_SAMPLE_TXT)
+    solution = d4.Solution(_SAMPLE_TXT)
 
     assert solution.solve_part_one() == 18
+
+def test_day_4_sample_2():
+    solution = d4.Solution(_SAMPLE_TXT)
+
+    assert solution.solve_part_two() == 9
