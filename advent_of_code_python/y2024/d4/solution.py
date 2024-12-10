@@ -13,6 +13,12 @@ class Directions(Enum):
     UP = (0, -1)
     UPPER_RIGHT = (1, -1)
 
+class XmasDirections(Enum):
+    BOTTOM_RIGHT = (1, 1)
+    BOTTOM_LEFT = (-1, 1)
+    UPPER_LEFT = (-1, -1)
+    UPPER_RIGHT = (1, -1)
+
 class Solution:
      
     def __init__(self, file_name):
@@ -36,7 +42,16 @@ class Solution:
         return total_valid_xmas_instances
     
     def solve_part_two(self):
-        return 0
+        total_valid_x_mas_instances = 0
+
+        for i in range(len(self.word_search)):
+            for j in range(len(self.word_search[0])):
+                current_char = self.word_search[i][j]
+                if current_char == 'A':
+                    total_valid_x_mas_instances += self.search_x_mas(i, j, self.word_search)
+                        
+
+        return total_valid_x_mas_instances
     
     def search_xmas(self, row: int, column: int, word_search: List[List[int]]) -> int:
         valid_xmas_instances = 0
@@ -70,6 +85,25 @@ class Solution:
                 valid_xmas_instances += 1
         
         return valid_xmas_instances
+    
+    def search_x_mas(self, row: int, column: int, word_search: List[List[int]]) -> int:
+        max_row_len = len(word_search)
+        max_column_len = len(word_search[0])
+        valid_ms_pair = ('M','S')
+        valid_sm_pair = ('S','M')
+
+        if row < 1 or row >= max_row_len - 1 or column < 1 or column >= max_column_len - 1:
+            return 0
+        
+
+        # if top left = M and bottom right = S and 
+        top_left_to_bottom_right_pair = (word_search[row - 1][column - 1], word_search[row + 1][column + 1])
+        top_right_to_bottom_left_pair = (word_search[row - 1][column + 1], word_search[row + 1][column - 1])
+        if ((top_left_to_bottom_right_pair == valid_ms_pair or top_left_to_bottom_right_pair == valid_sm_pair) 
+            and (top_right_to_bottom_left_pair == valid_ms_pair or top_right_to_bottom_left_pair == valid_sm_pair)):
+            return 1
+        else:
+            return 0
                 
 
 
