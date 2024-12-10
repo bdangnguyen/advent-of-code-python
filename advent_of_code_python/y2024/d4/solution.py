@@ -13,12 +13,6 @@ class Directions(Enum):
     UP = (0, -1)
     UPPER_RIGHT = (1, -1)
 
-class XmasDirections(Enum):
-    BOTTOM_RIGHT = (1, 1)
-    BOTTOM_LEFT = (-1, 1)
-    UPPER_LEFT = (-1, -1)
-    UPPER_RIGHT = (1, -1)
-
 class Solution:
      
     def __init__(self, file_name):
@@ -95,8 +89,6 @@ class Solution:
         if row < 1 or row >= max_row_len - 1 or column < 1 or column >= max_column_len - 1:
             return 0
         
-
-        # if top left = M and bottom right = S and 
         top_left_to_bottom_right_pair = (word_search[row - 1][column - 1], word_search[row + 1][column + 1])
         top_right_to_bottom_left_pair = (word_search[row - 1][column + 1], word_search[row + 1][column - 1])
         if ((top_left_to_bottom_right_pair == valid_ms_pair or top_left_to_bottom_right_pair == valid_sm_pair) 
@@ -113,8 +105,6 @@ def main():
     part_two_value = solution.solve_part_two()
     print(f'Solution Part 1: {part_one_value}')
     print(f'Solution Part 2: {part_two_value}')
-
-    return
 
 if __name__ == "__main__":
     main()
