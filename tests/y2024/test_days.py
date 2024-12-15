@@ -49,6 +49,11 @@ def test_day_4_sample_2():
 
 
 def test_day_5_sample_1():
-    solution = d4.Solution(_SAMPLE_TXT)
+    solution = d5.Solution(_SAMPLE_TXT)
 
     assert solution.solve_part_one() == 143
+
+def test_day_5_sample_2():
+    solution = d5.Solution(_SAMPLE_TXT)
+
+    assert solution.solve_part_one() == 123
