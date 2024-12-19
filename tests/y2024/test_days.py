@@ -56,4 +56,4 @@ def test_day_5_sample_1():
 def test_day_5_sample_2():
     solution = d5.Solution(_SAMPLE_TXT)
 
-    assert solution.solve_part_one() == 123
+    assert solution.solve_part_two() == 123
